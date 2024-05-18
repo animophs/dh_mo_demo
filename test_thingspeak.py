@@ -7,24 +7,27 @@ from serial_process import *
 
 last_connection_time = time.time() # Track the last connection time
 last_update_time = time.time()     # Track the last update time
-posting_interval = 30             # Post data once every 20 seconds
+posting_interval = 20             # Post data once every 20 seconds
 update_interval = 10               # Update once every 10 seconds
 
+TOKEN = "***********"
+chat_id = "*********"
+
 # PM - T - RH - DEV 1
-write_api_key1_1 = "RLXOENNREQZ7GFOQ"         # Replace YOUR-CHANNEL-write_api_key with your channel write API key
-channel1_1_ID = "2543048"                     # Replace YOUR-channel_ID with your channel ID
+write_api_key1_1 = "*****"         # Replace YOUR-CHANNEL-write_api_key with your channel write API key
+channel1_1_ID = "****"                     # Replace YOUR-channel_ID with your channel ID
 
 # PM - T - RH - DEV 2
-write_api_key2_1 = "YQEZI14UCRPQKJEC"         # Replace YOUR-CHANNEL-write_api_key with your channel write API key
-channel2_1_ID = "2543052"                     # Replace YOUR-channel_ID with your channel ID
+write_api_key2_1 = "****"         # Replace YOUR-CHANNEL-write_api_key with your channel write API key
+channel2_1_ID = "*****"                     # Replace YOUR-channel_ID with your channel ID
 
 # Gas sensor - DEV 1
-write_api_key1_2 = "145RUE1MKJQT4K2R"         # Replace YOUR-CHANNEL-write_api_key with your channel write API key
-channel1_2_ID = "2543193"                     # Replace YOUR-channel_ID with your channel ID
+write_api_key1_2 = "****"         # Replace YOUR-CHANNEL-write_api_key with your channel write API key
+channel1_2_ID = "****"                     # Replace YOUR-channel_ID with your channel ID
 
 # Gas sensor - DEV 2
-write_api_key2_2 = "7X38Q82UJ7LX5II1"         # Replace YOUR-CHANNEL-write_api_key with your channel write API key
-channel2_2_ID = "2543195"              # Replace YOUR-channel_ID with your channel ID
+write_api_key2_2 = "*****"         # Replace YOUR-CHANNEL-write_api_key with your channel write API key
+channel2_2_ID = "*****"              # Replace YOUR-channel_ID with your channel ID
 
 url1_1 = "https://api.thingspeak.com/channels/" + channel1_1_ID + "/bulk_update.json" # ThingSpeak server settings
 url2_1 = "https://api.thingspeak.com/channels/" + channel2_1_ID + "/bulk_update.json" # ThingSpeak server settings
@@ -35,8 +38,6 @@ message_buffer2_1 = []
 message_buffer1_2 = []
 message_buffer2_2 = []
 
-TOKEN = "***********"
-chat_id = "*********"
 BOT_TOKEN = "bot"+TOKEN
 CHAT_SEND_ID = "/sendMessage?chat_id="+chat_id+"&text="
 
@@ -147,6 +148,9 @@ def updatesJson():
     if (dev_id) == 1:
         global message_buffer1_1
         global message_buffer1_2
+        message_buffer1_1 = []
+        message_buffer1_2 = []
+
         message_buffer1_1.append(message1)
         message_buffer1_2.append(message2)
         print(message_buffer1_1)
@@ -154,6 +158,8 @@ def updatesJson():
     elif dev_id == b'\x02':
         global message_buffer2_1
         global message_buffer2_2
+        message_buffer2_1 = []
+        message_buffer2_2 = []
         message_buffer2_1.append(message1)
         message_buffer2_2.append(message2)
 
