@@ -35,12 +35,16 @@ message_buffer2_1 = []
 message_buffer1_2 = []
 message_buffer2_2 = []
 
-TOKEN = "*******"
-chat_id = "******"
+TOKEN = "***********"
+chat_id = "*********"
+BOT_TOKEN = "bot"+TOKEN
+CHAT_SEND_ID = "/sendMessage?chat_id="+chat_id+"&text="
 
 def mess_alarm_ch4(channel, ch4_data):
-    message_CH4 = "CH4 vượt ngưỡng - " + "Thiết bị :" + str(channel) + "-- Nồng độ :" + str(ch4_data)
-    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message_CH4}"
+    message_CH4 = "CH4 Alarm - " + "Device :" + str(channel) + "-- Value :" + str(ch4_data)
+    mess_send = CHAT_SEND_ID+message_CH4
+    # url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message_CH4}"
+    url = "https://api.telegram.org/"+BOT_TOKEN+mess_send
     print(requests.get(url).json()) # this sends the message
 
 def httpRequest():
@@ -165,7 +169,6 @@ if __name__ == "__main__":  # To ensure that this is run directly and does not r
             # If posting interval time has crossed  update the ThingSpeak channel with your data
             if (time.time() - last_connection_time) >= posting_interval:
                 httpRequest()
-                mess_alarm_ch4(1, 100)
             # # If update interval time has crossed 15 seconds update the message buffer with data
             # if (time.time() - last_update_time) >= update_interval:
             #     updatesJson()
