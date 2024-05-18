@@ -45,7 +45,8 @@ def mess_alarm_ch4(channel, ch4_data):
     mess_send = CHAT_SEND_ID+message_CH4
     # url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message_CH4}"
     url = "https://api.telegram.org/"+BOT_TOKEN+mess_send
-    print(requests.get(url).json()) # this sends the message
+    # print(requests.get(url).json()) # this sends the message
+    requests.get(url).json()
 
 def httpRequest():
 # Function to send the POST request to ThingSpeak channel for bulk update.
@@ -162,7 +163,7 @@ def updatesJson():
             
 if __name__ == "__main__":  # To ensure that this is run directly and does not run when imported
     logging.basicConfig(level=logging.DEBUG)
-    _serial_obj = serial_process(com_port='COM28')
+    _serial_obj = serial_process(com_port='/dev/ttyMT1')
     _serial_obj.start()
     try :
         while True:
