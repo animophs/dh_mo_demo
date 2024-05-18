@@ -35,11 +35,11 @@ message_buffer2_1 = []
 message_buffer1_2 = []
 message_buffer2_2 = []
 
-TOKEN = "6992311019:AAF3jYW4VucRPoSZP0BJGBxrUEx26bWLRGI"
-chat_id = "508772608"
+TOKEN = "*******"
+chat_id = "******"
 
-def mess_alarm_ch4(channel, ch4_val):
-    message_CH4 = "CH4 vượt ngưỡng - " + "Thiết bị :" + str(channel) + "-- Nồng độ :" + str(ch4_val)
+def mess_alarm_ch4(channel, ch4_data):
+    message_CH4 = "CH4 vượt ngưỡng - " + "Thiết bị :" + str(channel) + "-- Nồng độ :" + str(ch4_data)
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message_CH4}"
     print(requests.get(url).json()) # this sends the message
 
@@ -158,13 +158,14 @@ def updatesJson():
             
 if __name__ == "__main__":  # To ensure that this is run directly and does not run when imported
     logging.basicConfig(level=logging.DEBUG)
-    _serial_obj = serial_process(com_port='/dev/ttyMT1')
+    _serial_obj = serial_process(com_port='COM28')
     _serial_obj.start()
     try :
         while True:
             # If posting interval time has crossed  update the ThingSpeak channel with your data
             if (time.time() - last_connection_time) >= posting_interval:
                 httpRequest()
+                mess_alarm_ch4(1, 100)
             # # If update interval time has crossed 15 seconds update the message buffer with data
             # if (time.time() - last_update_time) >= update_interval:
             #     updatesJson()
