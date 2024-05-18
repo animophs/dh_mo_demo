@@ -35,6 +35,14 @@ message_buffer2_1 = []
 message_buffer1_2 = []
 message_buffer2_2 = []
 
+TOKEN = "6992311019:AAF3jYW4VucRPoSZP0BJGBxrUEx26bWLRGI"
+chat_id = "508772608"
+
+def mess_alarm_ch4(channel, ch4_val):
+    message_CH4 = "CH4 vượt ngưỡng - " + "Thiết bị :" + str(channel) + "-- Nồng độ :" + str(ch4_val)
+    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={chat_id}&text={message_CH4}"
+    print(requests.get(url).json()) # this sends the message
+
 def httpRequest():
 # Function to send the POST request to ThingSpeak channel for bulk update.
     global message_buffer1_1
@@ -145,10 +153,12 @@ def updatesJson():
         message_buffer2_2.append(message2)
 
     last_update_time = time.time()
+    if(ch4_val > 500):
+        mess_alarm_ch4(dev_id, ch4_val)
             
 if __name__ == "__main__":  # To ensure that this is run directly and does not run when imported
     logging.basicConfig(level=logging.DEBUG)
-    _serial_obj = serial_process(com_port='COM16')
+    _serial_obj = serial_process(com_port='/dev/ttyMT1')
     _serial_obj.start()
     try :
         while True:
